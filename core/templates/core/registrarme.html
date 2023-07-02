@@ -21,6 +21,13 @@
                       {% else %}
                         <img id="registrarme-imagen" src="{% static 'core/images/pfp.jpg' %}">
                       {% endif %}
+                      {% if form.errors %}
+                        <br>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          {{ form.errors }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      {% endif %}
                   </div>
               </div>
           </div>

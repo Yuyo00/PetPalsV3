@@ -15,10 +15,10 @@
               <div class="card-header">Imagen de Perfil</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    {% if form.imagen.value %}
-                      <img id="registrarme-imagen" src="/media/{{ form.imagen.value }}">
+                    {% if perfil.imagen %}
+                      <img id="usuario-imagen" src="/media/{{perfil.imagen}}" width="300">
                     {% else %}
-                      <img id="registrarme-imagen" src="{% static 'core/images/pfp.jpg' %}">
+                      <img id="usuario-imagen" src="{% static 'core/images/pfp.jpg' %}">
                     {% endif %}
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <div class="col-lg-12 col-md-12 form-group">
                           <label class="small mb-1" for="formDireccion">Direccion</label>
-                          <textarea name="formDireccion" id="formDireccion" class="form-control" cols="3" rows="3" placeholder="Ingrese su direccion" value="{{perfil.direccion}}"></textarea>
+                          <textarea name="formDireccion" id="formDireccion" class="form-control" cols="3" rows="3" placeholder="Ingrese su direccion" >{{perfil.direccion}}</textarea>
                         </div>
                     </div>
                   </div>
@@ -77,10 +77,10 @@
                 </div>
                 <div><br></div>
                   <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="{{perfil.subscrito}}" id="flexCheckChecked" >
-                      <label class="form-check-label" for="flexCheckChecked">
-                          Deseo subscribirme con un aporte de $3.000 mensuales y recibir un 5% de descuento en todas mis compras
-                      </label>
+                  <input class="form-check-input" type="checkbox" value="{{ perfil.subscrito }}" id="flexCheckChecked" {% if perfil.subscrito %}checked{% endif %}>
+                  <label class="form-check-label" for="flexCheckChecked">
+                      Deseo subscribirme con un aporte de $3.000 mensuales y recibir un 5% de descuento en todas mis compras
+                  </label>
                     </div>
                   </div>
                 </div>

@@ -30,4 +30,6 @@ urlpatterns = [
     path('premio', premio, name='premio'),
     path('poblar', poblar, name='poblar'),
     path('administrar', administrar, name='administrar'),
+    
+    
 ]

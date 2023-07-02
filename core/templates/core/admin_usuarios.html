@@ -7,7 +7,156 @@
 {% endblock stylesheet %}
 
 {% block content %}
-    
-    <h1>Mantenedor de usuarios</h1>
+    <div class="container-xl px-4 mt-4">
+        <h1>Mantenedor de usuarios</h1>
+          <div class="row">
+              <div class="col-xl-8">
+                  <div class="card mb-4">
+                      <div class="card-body">
+                          <form method="post" id="formularioUsuario" action="recibir_datos">
+                              <div class="row gx-3 mb-3">
+                                  <!-- ID-->
+                                  <div class="col-md-3 form-group">
+                                      <label class="small mb-1" for="formId">ID</label>
+                                      <input class="form-control" id="formId" name="formId" type="text" placeholder="ID" value="35">
+                                  </div>
+                                  <!-- Tipo Cliente-->
+                                  <div class="my-3">
+                                      Tipo de cliente:
+                                      <div class="form-check">
+                                          <input id="Cliente" name="tipoCliente" type="radio" class="form-check-input" required>
+                                          <label class="form-check-label" for="credit">Cliente</label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input id="Administrador" name="tipoCliente" type="radio" class="form-check-input" checked required>
+                                          <label class="form-check-label" for="debit">Administrador</label>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Rut -->
+                              <div class="row gx-3 mb-3">
+                                <div class="col-md-12 form-group">
+                                    <label class="small mb-1" for="formRut">Rut</label>
+                                    <input class="form-control" id="formRut" name="formRut" type="text" placeholder="Ingrese RUT" value="12.345.678-K">
+                                </div>
+                                <!-- Nombre -->
+                                <div class="col-md-12 form-group">
+                                    <label class="small mb-1" for="formNombre">Nombre</label>
+                                    <input class="form-control" id="formNombre" name="formNombre" type="text" placeholder="Ingrese Nombre" value="Ana">
+                                    <!-- Apellido -->
+                                  <div class="col-md-12 form-group">
+                                    <label class="small mb-1" for="formApellido">Apellido</label>
+                                    <input class="form-control" id="formApellido" name="formApellido" type="text" placeholder="Ingrese Apellido" value="Torres">
+                                  </div>
+                                  <!-- Email -->
+                                  <div class="col-md-12 form-group">
+                                    <label class="small mb-1" for="formEmail">E-mail</label>
+                                    <input class="form-control" id="formEmail" name="formEmail" type="text" placeholder="Ingrese Correo" value="atorres@duocuc.cl">
+                                  </div>
+                                  <!-- Direccion -->
+                                  <div class="mb-4">
+                                    <div class="form-group">
+                                      <label for="formDireccion">Direccion</label>
+                                      <textarea class="form-control" id="formDireccion" name="formDireccion" rows="3">Padre Alonso de Ovalle 1586, Santiago, Región Metropolitana</textarea>
+                                    </div>
+                                  </div>
+                                  <!-- Contraseña -->
+                                  <div class="row">
+                                    <div class="col-md-9 form-group">
+                                      <label class="small mb-1" for="formPassword">Contraseña</label>
+                                      <input class="form-control" id="formPassword" name="formPassword" type="text" placeholder="Ingrese Contraseña" value="***************">
+                                    </div>
+                                    <!-- Boton generar contraseña -->
+                                    <div class="col-md-3">
+                                      <button class="btn btn-outline-secondary my-4" type="button">Generar contraseña</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- Subscripcion -->
+                                  <div class="form-check d-flex justify-content-start mb-1 pb-1">
+                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                                    <label class="form-check-label text-dark" for="form2Example3">
+                                      Deseo subscribirme con un aporte de $3.000 mensuales y recibir un 5% de descuento en todas mis compras
+                                    </label>
+                                  </div>
+                                </div>
+                                <!-- Botones -->
+                              <button class="btn btn-primary" type="button">Guardar</button>
+                              <button class="btn btn-outline-secondary" type="button">Nuevo</button>
+                              <button class="btn btn-outline-secondary" type="button">Eliminar</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-4">
+                  <!-- Profile picture card-->
+                  <div class="card mb-4 mb-xl-0">
+                      <div class="card-body text-center">
+                          <!-- Profile picture image-->
+                          <img class="img-account-profile rounded-circle mb-2" src="img/pfp2.png" alt="">
+                          <!-- Profile picture help block-->
+                          <br>
+                          <!-- Profile picture upload button-->
+                          <div class="mb-4">
+                              <input type="file" class="form-control" id="customFile" />
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      {% if productos %}
+    <table id="tabla-principal" class="table table-hover">
+        <thead>
+            <tr>
+                <th> ID </th>
+                <th> Categoria </th>
+                <th> Producto </th>
+                <th> Descripcion </th>
+                <th> Precio </th>
+                <th> % Subscriptor </th>
+                <th> % Oferta </th>
+                <th> Imagen </th>
+                <th> Opciones </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+                <tr>
+                    <td> {{ producto.id }} </td>
+                    <td> {{ producto.categoria }} </td>
+                    <td style="width: 15%;"> {{ producto.nombre }} </td>
+                    <td style="width: 15%;"> {{ producto.descripcion }} </td>
+                    <td> {{ producto.precio }} </td>
+                    <td style="width: 10%;"> {{ producto.descuento_subscriptor }} </td>
+                    <td style="width: 10%;"> {{ producto.descuento_oferta }} </td>
+                    <td>
+                        <img src="/media/{{ producto.imagen }}" class="producto-sm" alt="">
+                    </td>
+                    <td style="width: 15%; ">
+                      <div>
+                        <div class="btn-group mx-1">
+                          <a href="{% url 'admin_productos' 'actualizar' producto.id %}" class="btn btn-outline-primary"> Editar </a>
+                        </div>
+                        <div class="btn-group">
+                          <form method="delete">
+                            <a href="{% url 'admin_productos' 'eliminar' producto.id %}" class="btn btn-outline-danger"> Eliminar </a>
+                          </form>
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  {% endif %}
+
+  
     
 {% endblock content %}
+
+{% block script %}
+  <script src="{% static 'core/js/admin_productos.js' %}"></script>
+{% endblock script %}
+

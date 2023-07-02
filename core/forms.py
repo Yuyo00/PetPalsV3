@@ -101,7 +101,7 @@ class RegistroClienteForm(UserCreationForm):
 
 
 class IngresarForm(Form):
-    username = forms.CharField(widget=forms.TextInput(attrs=form_control), label="Correo")
+    username = forms.CharField(widget=forms.TextInput(attrs=form_control), label="Uusario")
     password = forms.CharField(widget=forms.PasswordInput(attrs=form_control), label="Contraseña")
     class Meta:
         fields = ['username', 'password']

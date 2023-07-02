@@ -32,21 +32,24 @@ def registrarme(request):
 
     form = RegistroClienteForm()
     if request.method == 'POST':
-        form = RegistroClienteForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save()
-            rut = form.cleaned_data['rut']
-            direccion = form.cleaned_data['direccion']
-            subscrito = form.cleaned_data['subscrito']
-            Perfil.objects.create(
-                usuario=user, 
-                tipo_usuario='Cliente', 
-                rut=rut, 
-                direccion=direccion, 
-                subscrito=subscrito,
-                imagen=request.FILES['imagen'])
-            return redirect(ingresar)
-            
+        if 'clear_fields' in request.POST:
+            form.limpiar_cajas_de_texto()
+        else:
+            form = RegistroClienteForm(request.POST, request.FILES)
+            if form.is_valid():
+                user = form.save()
+                rut = form.cleaned_data['rut']
+                direccion = form.cleaned_data['direccion']
+                subscrito = form.cleaned_data['subscrito']
+                Perfil.objects.create(
+                    usuario=user, 
+                    tipo_usuario='Cliente', 
+                    rut=rut, 
+                    direccion=direccion, 
+                    subscrito=subscrito,
+                    imagen=request.FILES['imagen'])
+                return redirect(ingresar)
+        
     return render(request, "core/registrarme.html", {'form': form})
 
 
@@ -391,3 +394,43 @@ def poblar(request):
 
 def administrar(request):
     return render(request, 'core/administrar.html')
+
+
+def admin_usuarios2(request, accion, id):
+    
+    if request.method == 'POST':
+        
+        if accion == 'crear':
+            form = RegistroClienteForm(request.POST, request.FILES)
+
+        elif accion == 'actualizar':
+            form = RegistroClienteForm(request.POST, request.FILES, instance=Perfil.objects.get(id=id))
+        
+        if form.is_valid():
+            user = form.save()
+            form = RegistroClienteForm(instance=user)
+            messages.success(request, f'El producto "{str(user)}" se logró {accion} correctamente')
+            return redirect(admin_usuarios, 'actualizar', user.id)
+        else:
+            messages.error(request, f'No se pudo {accion} el Producto, pues el formulario no pasó las validaciones básicas')
+            return redirect(admin_usuarios, 'actualizar', id)
+
+    if request.method == 'GET':
+
+        if accion == 'crear':
+            form = ProductoForm()
+        
+        elif accion == 'actualizar':
+            form = RegistroClienteForm(instance=Perfil.objects.get(id=id))
+
+        elif accion == 'eliminar':
+            messages.success(request, eliminar_registro(Perfil, id))
+            return redirect(admin_usuarios, 'crear', '0')
+
+    usuarios = Perfil.objects.all()
+
+    datos = {
+        'form': form,
+        'usuarios': usuarios
+    }
+    return render(request, 'core/admin_productos.html', datos)
