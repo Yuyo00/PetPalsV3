@@ -1,0 +1,105 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container px-3">
+  <h1>Mantenedor de productos</h1>
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data" id="form">
+          {% csrf_token %}
+          <div class="row gx-3 mb-3">
+            <div class="col-sm-12 col-md-12">
+              <div class="col-md-12 form-group">
+                {% for field in form %}
+                <div class="form-group row mb-2">
+                  <label for="{{ field.id_for_label }}" class="small mb-1">
+                    {{ field.label }}
+                  </label>
+                    <div class="col-md-12">
+                      {{ field }}
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="mt-2 mb-3">
+              <input type="submit" class="btn btn-primary" value="Guardar">
+              <a class="btn btn-outline-success" href="{% url 'admin_productos' 'crear' '0' %}"> Nuevo </a>
+              {% if form.instance.id %}
+                <a class="btn btn-outline-danger" href="{% url 'admin_productos' 'eliminar' form.instance.id %}"> Eliminar </a>
+              {% endif %}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4">
+      <div class="card mb-4 mb-xl-0">
+        <div class="card-body text-center">
+        <!-- Foto-->
+          {% if form.imagen.value %}
+            <img id="admin-producto-imagen" src="/media/{{ form.imagen.value }}">
+          {% else %}
+            <img id="admin-producto-imagen" src="{% static 'core/images/sin-imagen.png' %}">
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if productos %}
+    <table id="tabla-principal" class="table table-hover">
+        <thead>
+            <tr>
+                <th> ID </th>
+                <th> Categoria </th>
+                <th> Producto </th>
+                <th> Descripcion </th>
+                <th> Precio </th>
+                <th> % Subscriptor </th>
+                <th> % Oferta </th>
+                <th> Imagen </th>
+                <th> Opciones </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+                <tr>
+                    <td> {{ producto.id }} </td>
+                    <td> {{ producto.categoria }} </td>
+                    <td style="width: 15%;"> {{ producto.nombre }} </td>
+                    <td style="width: 15%;"> {{ producto.descripcion }} </td>
+                    <td> {{ producto.precio|formatear_dinero }} </td>
+                    <td style="width: 10%;"> {{ producto.descuento_subscriptor|formatear_porcentaje }} </td>
+                    <td style="width: 10%;"> {{ producto.descuento_oferta|formatear_porcentaje }} </td>
+                    <td>
+                        <img src="/media/{{ producto.imagen }}" class="producto-sm" alt="">
+                    </td>
+                    <td style="width: 15%; ">
+                      <div>
+                        <div class="btn-group mx-1">
+                          <a href="{% url 'admin_productos' 'actualizar' producto.id %}" class="btn btn-outline-primary"> Editar </a>
+                        </div>
+                        <div class="btn-group">
+                          <form method="delete">
+                            <a href="{% url 'admin_productos' 'eliminar' producto.id %}" class="btn btn-outline-danger"> Eliminar </a>
+                          </form>
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  {% endif %}
+
+{% endblock content %}
+
+{% block script %}
+  <script src="{% static 'core/js/admin_productos.js' %}"></script>
+{% endblock script %}

@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+    
+    <div class="container-xl px-4 mt-4">
+        <h1>Carrito de compras</h1>
+        <div class="row table-responsive">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> ID </th>
+                            <th> Categoría </th>
+                            <th> Producto </th>
+                            <th> Precio </th>
+                            <th> % Desc Subscriptor </th>
+                            <th> % Desc Oferta </th>
+                            <th> % Desc Total </th>
+                            <th class="text-end"> Descuentos </th>
+                            <th class="text-end"> Precio a pagar </th>
+                            <th> Acciones </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in detalle_carrito %}
+                            <tr>
+                                <td> {{ item.id }} </td>
+                                <td> {{ item.producto.categoria.nombre }} </td>
+                                <td> {{ item.producto.nombre }} </td>
+                                <td> {{ item.precio|formatear_dinero }} </td>
+                                <td> {{ item.descuento_subscriptor|formatear_porcentaje }} </td>
+                                <td> {{ item.descuento_oferta|formatear_porcentaje }} </td>
+                                <td> {{ item.descuento_total|formatear_porcentaje }} </td>
+                                <td class="text-end"> {{ item.descuentos|formatear_dinero }} </td>
+                                <td class="text-end"> {{ item.precio_a_pagar|formatear_dinero }} </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{% url 'eliminar_producto_en_carrito' item.id %}" class="btn btn-outline-danger"> Eliminar </a> 
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+                <div class="col-md-5 col-lg-3 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">Resumen</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">Precio sin IVA</h6>
+                    </div>
+                    <span class="text-body-secondary">{{ monto_sin_iva|formatear_dinero }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">Valor del IVA (19%)</h6>
+                    </div>
+                    <span class="text-body-secondary">{{ iva|formatear_dinero }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                    <span>Total a pagar</span>
+                    <strong>{{ total_a_pagar|formatear_dinero }}</strong>
+                    </li>
+                </ul>
+                <form class="card p-2">
+                    <div class="button-group">
+                    <button type="button" class="btn btn-primary me-1">Comprar</button>
+                    <button type="button" class="btn btn-outline-danger">Cancelar compra</button>
+                    </div>
+                </form>
+                </div>
+                <div class="col-md-7 col-lg-9">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

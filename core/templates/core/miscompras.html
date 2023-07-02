@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+    
+    
+    <div class="container-xl px-4 mt-4">
+        <h1>Mi historial de compras</h1>
+        <div class="row table-responsive">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> Nro boleta </th>
+                            <th> Fecha venta </th>
+                            <th> Fecha despacho</th>
+                            <th> Fecha entrega </th>
+                            <th> Monto total </th>
+                            <th> Estado actual </th>
+                            <th> Acciones </th>
+                        </tr>
+                    </thead> 
+                    <tbody>
+                        {% for boleta in historial %}
+                            
+                                <tr> 
+                            
+                                <td> {{ boleta.nro_boleta }} </td>
+                                <td> {{ boleta.fecha_venta|formatear_fecha }} </td>
+                                <td> {{ boleta.fecha_despacho|formatear_fecha }} </td>
+                                <td> {{ boleta.fecha_entrega|formatear_fecha }} </td>
+                                <td> {{ boleta.total_a_pagar|formatear_dinero  }} </td>
+                                <td> {{ boleta.estado }} </td>
+                                <td>
+                                    <a href="{% url 'boleta' boleta.nro_boleta %}" class="btn btn-outline-primary me-1">Ver detalle</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>       
+                </table>
+
+{% endblock content %}

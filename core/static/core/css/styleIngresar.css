@@ -1,0 +1,45 @@
+form {
+  border-radius: 5px;
+  margin: 2% auto;
+  padding: 2%;
+}
+
+#headerLogIn {
+  margin: 2% auto 5% auto;
+  text-align: center;
+  font-size: 250%;
+  color: #3e403f;
+}
+
+#buttonLogIn {
+  width: 290px;
+  height: 43px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s linear;
+  letter-spacing: 0.05em;
+  margin-top: 5%;
+}
+
+.submits {
+  width: 48%;
+  display: inline-block;
+  margin-left: 1%;
+  margin-top: 1%;
+}
+
+#divIngresar {
+  background-color: white;
+  box-shadow: 0 9px 50px hsla(60, 1%, 83%, 0.31);
+}
+
+form .con {
+  display: flex;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}

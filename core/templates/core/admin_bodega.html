@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% load custom_filters %}
+
+{% block stylesheet %}
+
+{% endblock stylesheet %}
+
+{% block content %}
+
+<div class="container-xl px-4">
+    <h1>Mantenedor de bodega</h1>
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" id="form">
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="form-row">
+                                {% for field in form %}
+                                    <div class="form-group row mb-2">
+                                        <label for="{{ field.id_for_label }}" class="small mb-1">
+                                            {{ field.label }}
+                                        </label>
+                                        <div class="col-sm-12">
+                                            {{ field }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 mb-3">
+                            <button id="id_agregar" class="btn btn-primary" type="submit"> Agregar </button>
+                            <button type="reset" value="clear" onclick= "none" class="btn btn-outline-secondary">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-body text-center">
+                    <div class="col-sm-12 col-md-6">
+                        <img id="admin-bodega-imagen" src="{% static 'core/images/sin-imagen.png' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if productos %}
+        <table id="tabla-principal" class="table table-hover">
+            <thead>
+                <tr>
+                    <th> ID </th>
+                    <th> Categoría </th>
+                    <th> Nombre </th>
+                    <th> Estado </th>
+                    <th> Opciones </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                    <tr>
+                        <td> {{ producto.bodega_id }} </td>
+                        <td> {{ producto.nombre_categoria }} </td>
+                        <td> {{ producto.nombre_producto }} </td>
+                        <td> {{ producto.estado }} </td>
+                        <td>
+                            {% if producto.estado == 'En bodega' %}
+                                <a href="{% url 'eliminar_producto_en_bodega' producto.bodega_id %}" 
+                                    class="btn btn-outline-danger"> Eliminar </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock content %}
+
+{% block script %}
+    <input type="hidden" id="url_obtener_productos" value="{% url 'obtener_productos' %}">
+    <script src="{% static 'core/js/admin_bodega.js' %}"></script>
+{% endblock script %}
+

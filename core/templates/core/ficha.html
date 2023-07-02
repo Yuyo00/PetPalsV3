@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+
+    <form method="post" id="formulario-ficha">
+
+        {% csrf_token %}
+
+        <div class="container">
+            <div class="row row-col-1 row-col-sm-4 row-col-md-4 g-4">
+                <div class="col-sm-12 col-md-6">
+                <!-- imagen -->
+                    <div class="card mb-4 box-shadow">
+                        <img src="/media/{{ imagen }}" width="100%">
+                    </div>
+                </div>
+                <!--Descripcion-->
+          <div class="col-sm-12 col-md-6">
+            <div class="card mb-4 box-shadow">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group"> <!-- Stock -->
+                    <small class="text-muted">{{ html_stock|safe }}</small>
+                  </div>
+                </div>
+                  <p class="card-text">
+                    <!-- Nombre -->
+                    <h4 class="text-dark">{{ nombre }}</h4>
+                    <!-- Disponibilidad -->
+                    <h6 class="disponible">{{ html_estado|safe }}</h6>
+                    <!-- Precio -->
+                    <h5 class="text-dark">{{ html_precio|safe }}</h5> 
+                    <!-- Descripcion -->
+                    <p class="text-dark">
+                        {{ descripcion }}
+                    </p>
+                    <!-- Botones-->
+                    <div class=" col-md-5 col-lg-5 col-xxl-4 my-5 mx-auto">
+                      <div class="d-grid gap-2">
+                        <input type="hidden" id="accion">
+                        {% if user.is_authenticated %}
+                          {% if user.is_staff or user.is_superuser %}
+                            <button class="btn btn-primary disabled me-1" value="" aria-disabled="true">Comprar</button>
+                            <a class="btn btn-outline-secondary disabled me-1" href="{% url 'agregar_producto_al_carrito' id %}" role="button" aria-disabled="true">Agregar al carrito</a>
+                          {% else %}
+                            {% if  html_stock|safe == "0 en stock"%}
+                              <button class="btn btn-primary disabled me-1" value="" aria-disabled="true">Comprar</button>
+                              <a class="btn btn-outline-secondary disabled me-1" href="{% url 'agregar_producto_al_carrito' id %}" role="button" aria-disabled="true">Agregar al carrito</a>
+                            {% else %}
+                              <button class="btn btn-primary me-1" value="">Comprar</button>
+                              <a class="btn btn-outline-secondary me-1" href="{% url 'agregar_producto_al_carrito' id %}" role="button">Agregar al carrito</a>
+                            {% endif %}
+                          {% endif %}
+                        {% else %}
+                          {% if  html_stock|safe == "0 en stock"%}
+                            <button class="btn btn-primary disabled me-1" value="" aria-disabled="true">Comprar</button>
+                            <a class="btn btn-outline-secondary disabled me-1" href="{% url 'agregar_producto_al_carrito' id %}" role="button" aria-disabled="true">Agregar al carrito</a>
+                          {% else %}
+                            <a class="btn btn-primary me-1" href="{% url 'ingresar' %}" role="button">Comprar</a>
+                            <a class="btn btn-outline-secondary me-1" href="{% url 'ingresar' %}" role="button">Agregar al carrito</a>
+                          {% endif %}
+                        {% endif %}
+                      </div>
+                    </div>
+                  </p>
+              </div>
+            </div>
+          </div>
+    </form>
+
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static 'core/js/ficha.js' %}"></script>
+{% endblock script %}

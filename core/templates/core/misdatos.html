@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    
+<form method="POST" enctype="multipart/form-data">
+
+  {% csrf_token %}
+  <div class="container-xl">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-xl-0">
+              <div class="card-header">Imagen de Perfil</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    {% if form.imagen.value %}
+                      <img id="registrarme-imagen" src="/media/{{ form.imagen.value }}">
+                    {% else %}
+                      <img id="registrarme-imagen" src="{% static 'core/images/pfp.jpg' %}">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+              <div class="card-header">Detalles de la cuenta</div>
+              <div class="card-body">
+                <form method="post" id="formularioDatos" action="recibir_datos">
+                  <div class="row gx-3 mb-3">
+                      <!-- Form Group (first name)-->
+                      <div class="col-md-6 fomr-group" >
+                          <label class="small mb-1" for="formNombre">Nombre</label>
+                          <input class="form-control" id="formNombre" name="formNombre" type="text" value="{{perfil.usuario.first_name}}">
+                      </div>
+                      <!-- Form Group (last name)-->
+                      <div class="col-md-6 form-group" >
+                          <label class="small mb-1" for="formApellido">Apellido</label>
+                          <input class="form-control" id="formApellido" name="formApellido" type="text" placeholder="Ingrese su apellido" value="{{perfil.usuario.last_name}}">
+                      </div>
+                  </div>
+                  <div class="row gx-3 mb-3">
+                      <div class="col-md-6 form-group">
+                          <label class="small mb-1" for="formEmail">E-mail</label>
+                          <input class="form-control" id="formRut" name="formRut" type="text" value="{{ perfil.usuario.email }}">
+                      </div>
+                      <div class="col-md-6 form-group">
+                          <label class="small mb-1" for="formTelefono">Usuario</label>
+                          <input class="form-control" id="formTelefono" name="formTelefono" type="text" placeholder="Ingrese su telefono" value="{{perfil.usuario.username}}">
+                      </div>
+                  </div>
+                  <div class="col-md-12 form-group">
+                    <label class="small mb-12" for="formRut">RUT</label>
+                    <input class="form-control" id="formRut" name="formRut" type="text" placeholder="Ingrese su rut" value="{{perfil.rut}}">
+                  </div>
+                  <div class="mb-6">
+                    <div class="form-group">
+                        <div class="col-lg-12 col-md-12 form-group">
+                          <label class="small mb-1" for="formDireccion">Direccion</label>
+                          <textarea name="formDireccion" id="formDireccion" class="form-control" cols="3" rows="3" placeholder="Ingrese su direccion" value="{{perfil.direccion}}"></textarea>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="small mb-1" for="formPasswordAnt">Ingrese contraseña actual</label>
+                    <input type="password" name="formPasswordAnt" class="form-control" id="formPasswordAnt" placeholder="Ingrese contraseña actual">
+                  </div>
+                <div class="form-group">
+                  <label class="small mb-1" for="formPassword">Nueva contraseña</label>
+                  <input type="password" name="formPassword" class="form-control" id="formPassword" placeholder="Ingrese nueva contraseña" value="{{perfil.contraseña1}}">
+                </div>
+                <div class="form-group">
+                  <label class="small mb-1" for="formPassword2">Repita la nueva contraseña</label>
+                  <input type="password" name="formPassword2" class="form-control" id="formPassword2" placeholder="Repita la nueva contraseña" value="{{perfil.contraseña2}}">
+                </div>
+                <div><br></div>
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="{{perfil.subscrito}}" id="flexCheckChecked" >
+                      <label class="form-check-label" for="flexCheckChecked">
+                          Deseo subscribirme con un aporte de $3.000 mensuales y recibir un 5% de descuento en todas mis compras
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</form>
+
+{% endblock content %}

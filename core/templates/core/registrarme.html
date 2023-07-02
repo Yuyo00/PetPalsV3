@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data" id="form">
+
+    {% csrf_token %}
+
+    <div class="container-xl">
+      <div class="row">
+          <div class="col-xl-4">
+              <!-- Profile picture card-->
+              <div class="card mb-xl-0">
+                <div class="card-header">Imagen de Perfil</div>
+                  <div class="card-body text-center">
+
+                      <!-- Profile picture image-->
+                      {% if form.imagen.value %}
+                        <img id="registrarme-imagen" src="/media/{{ form.imagen.value }}">
+                      {% else %}
+                        <img id="registrarme-imagen" src="{% static 'core/images/pfp.jpg' %}">
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          <div class="col-xl-8">
+              <!-- Account details card-->
+              <div class="card">
+                  <div class="card-header">Registro</div>
+                  <div class="card-body">
+                    <div class="form-row">
+
+                      {% for field in form %}
+
+                        <div class="col-md-12 form-group">
+
+                          <label for="{{ field.id_for_label }}" class="small mb-12">
+                            {{ field.label }}
+                          </label>
+
+                          <div class="col-12">
+                            {{ field }}
+                          </div>
+
+                        </div>
+                      {% endfor %}
+
+                      <div class="mt-2 mb-2">
+                        <button class="btn btn-primary mt-3" type="submit">Registrame</button>
+                        <button type="reset" value="clear" onclick= "none" class="btn btn-outline-secondary mt-3">Limpiar</button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+
+{% endblock content %}
+
+{% block script %}
+  <script src="{% static 'core/js/registrarme.js' %}"></script>
+{% endblock script %}

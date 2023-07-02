@@ -1,0 +1,193 @@
+body {
+    padding: 10px !important;
+    background-color: #f5f5f5;
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+} 
+
+.bodyIngresar {
+  padding: 10px;
+  background-color: #f5f5f5;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.footerIngresar {
+padding: 300px;
+}
+
+/*traté de que se quedara abajo y no funcionó :( */
+footer{
+  margin-top: auto 0;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block; 
+}
+
+.photos img{
+  width: 70%;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.oferta_irresistible{
+  font-family:fantasy;
+  border: 3px solid red;
+  color: red;
+  width: 100px;
+  text-align: center;
+  display: grid;
+  place-items: center;
+}
+
+a{
+  text-decoration: none;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+
+#centrar {
+  display: grid;
+  place-items: center;
+}
+
+@media (min-width: 1025px) {
+  .h-custom {
+      height: 100vh !important;
+  }
+}
+.logo-menu-superior {
+  height: 40px;
+}
+
+.error-message {
+  color: red !important;
+}
+
+.producto-sm {
+  width:  82px;
+  height: 70px;
+}
+
+.index-producto-imagen {
+  max-width:  165px;
+  max-height: 139px; 
+}
+
+.index-producto-descripcion {
+  width: 200px; /* Ancho fijo para el contenedor */
+}
+
+.index-card-footer {
+  background-color: transparent;
+  border-top: none;
+}
+
+#admin-producto-imagen {
+  max-width: 350px;
+  max-height: 350px;
+  padding: 3px;
+}
+
+#admin-bodega-imagen {
+  max-width: 150px;
+  max-height: 150px;
+  padding: 3px;
+}
+
+#registrarme-imagen {
+  max-width: 200px;
+  max-height: 200px;
+  padding: 3px;
+}  /*No se ve el max with que onda  */
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: .75em;
+  padding-right: .75em;
+}
+
+.card-registration .select-arrow {
+  top: 13px;
+}
+
+#parrafo-nosotros{
+  padding: 20px;
+}
+
+.container {
+  padding: 2px 16px;
+  }
+
+.centrar2 {
+  display:grid;
+  place-items: center;
+}
+
+.img-account-profile {
+  height: 10rem;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+/*sombra a las cards cuando se pasa por ellas */
+.card:hover {
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card {
+  box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+}
+
+/*Las imagenes del nosotros no estaban redondeadas*/
+.card img {
+  border-radius: 2% !important;
+}
+
+.card .card-header {
+  font-weight: 500;
+}
+.card-header:first-child {
+  border-radius: 0.35rem 0.35rem 0 0;
+}
+.card-header {
+  padding: 1rem 1.35rem;
+  margin-bottom: 0;
+  background-color: rgba(33, 40, 50, 0.03);
+  border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+
+.carousel-control-next-icon{
+  filter: invert(1) grayscale(100);
+}
+.carousel-control-prev-icon{
+  filter: invert(1) grayscale(100);
+}
+
+.footer2{
+  padding: 0 !important;
+  margin-bottom: auto !important;
+}
+
+.red {
+  color: red;
+}
+
+td{
+  background-color: transparent !important;
+}
+
+th{
+  background-color: transparent !important;
+}

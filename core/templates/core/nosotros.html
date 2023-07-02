@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 text-sm-start text-md-center" >
+      <h1>Nosotros</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 text-start" >
+        <p id="parrafo-nosotros">
+          ¡Bienvenido a PetPals, su destino favorito para todo lo relacionado con mascotas! Somos una página única para todos los amantes de las mascotas, que ofrece una amplia gama de productos y servicios para ayudarlo a cuidar a sus amigos peludos.<br>
+          <br>
+          En PetPals, entendemos que las mascotas son una parte importante de su familia, y estamos comprometidos a brindarles el mejor cuidado y atención posibles. Nuestro equipo de expertos es un apasionado de los animales y nos esforzamos por crear un ambiente agradable y acogedor donde tanto usted como sus mascotas se sientan como en casa.<br>
+          <br>
+          Ofrecemos una diversa selección de productos para mascotas de alta calidad, que incluyen alimentos, juguetes, ropa de cama, artículos de aseo y más. Ya sea que tenga un perro, un gato, un pájaro, un pez o cualquier otro tipo de mascota, tenemos todo lo que necesita para mantenerlos felices y saludables.<br>
+          <br>
+          En PetPals, estamos comprometidos a retribuir a la comunidad y participamos regularmente en eventos locales de rescate y adopción de animales. Creemos que cada mascota merece un hogar lleno de amor y estamos dedicados a ayudar a los animales a encontrar sus familias para siempre.<br>
+          <br>
+          Además de eso, estamos afiliados con la fundación "Mascotas Felices", a la cual donamos parte de nuestras ganancias mensualmente. Si deseas ayudar, te puedes subscribir mensualmente con un aporte de $3.000 que se irá directamente a la fundación. Esto te dará un descuento del 5% en todas tus compras.<br>
+          <br>
+          Gracias por elegir a PetPals como tu tienda de mascotas de confianza. ¡Esperamos poder ayudarlo a usted y a sus mascotas a vivir una vida feliz y saludable!
+        </p>
+      </div>
+    </div>
+
+  <!--Tarjetas-->
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-6  text-center centrar2">
+      <div class="card" style="max-width:254px; ">
+        <img src="{% static 'core/images/yuyuIMG.jpeg' %}" style="width:50% 50%" alt="...">
+        <div class="container">
+          <h4><b>Antonia Mardones</b></h4>
+          <p>Gerente General <br>ant.mardones@duocuc.cl</p>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6 text-center centrar2">
+      <div class="card" style="max-width:254px;">
+        <img src="{% static 'core/images/davidIMG.png' %}" style="width:50% 50%" alt="...">
+        <div class="container">
+          <h4><b>David Saez</b></h4>
+          <p>Diseñador Gráfico <br>dav.saez@duocuc.cl</p>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+{% endblock content %}
