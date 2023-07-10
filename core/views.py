@@ -203,7 +203,7 @@ def misdatos(request):
 
 def miscompras(request):
 
-    usuario = User.objects.get(username='eolsen')
+    usuario = User.objects.get(username=request.user)
     perfil = Perfil.objects.get(usuario=usuario)
 
     boletas = Boleta.objects.filter(cliente=perfil)
