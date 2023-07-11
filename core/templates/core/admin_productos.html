@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="mt-2 mb-3">
-              <input type="submit" class="btn btn-primary" value="Guardar">
+              <input type="submit" class="btn btn-primary" id="editar-button" value="Guardar">
               <a class="btn btn-outline-success" href="{% url 'admin_productos' 'crear' '0' %}"> Nuevo </a>
               {% if form.instance.id %}
                 <a class="btn btn-outline-danger" href="{% url 'admin_productos' 'eliminar' form.instance.id %}"> Eliminar </a>
@@ -51,7 +51,14 @@
       </div>
     </div>
   </div>
-
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
   {% if productos %}
     <table id="tabla-principal" class="table table-hover">
         <thead>
@@ -87,7 +94,7 @@
                         </div>
                         <div class="btn-group">
                           <form method="delete">
-                            <a href="{% url 'admin_productos' 'eliminar' producto.id %}" class="btn btn-outline-danger"> Eliminar </a>
+                            <a href="{% url 'admin_productos' 'eliminar' producto.id %}" class="btn btn-outline-danger" id="delete-button"> Eliminar </a>
                           </form>
                         </div>
                       </div>
